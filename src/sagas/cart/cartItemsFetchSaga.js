@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import storage from 'redux-persist/lib/storage';
+import { AsyncStorage } from 'react-native';
 
 function* cartItemsFetch(action) {
   yield put({
@@ -7,7 +7,7 @@ function* cartItemsFetch(action) {
   });
 
   try {
-    const response = yield call(storage.getItem, 'userCart');
+    const response = yield call(AsyncStorage.getItem, 'userCart');
 
     yield put({
       type: 'SAVE_NEW_CART',

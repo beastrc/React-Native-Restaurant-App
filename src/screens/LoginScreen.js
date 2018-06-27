@@ -1,36 +1,38 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
-import storage from 'redux-persist/lib/storage';
+import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Actions } from 'react-native-router-flux';
 
 
-import { authLogin } from '../../src/actions/index';
-import LoginComponent from '../components/Login';
+import { authHydrateTokenFromStorage, authLogin } from '../actions';
+import LoginComponent from '../../app/components/Login';
+import LoadingView from '../../app/base_components/LoadingView';
 
 class LoginScreen extends Component {
-  displayName = 'LoginScreen';
-
   constructor(props) {
     super(props);
     this.state = {
       email: null,
       password: null,
+      isLoadingToken: true,
     };
   }
 
-  componentDidMount() {
-    const { loginMessage } = this.props;
-    if (loginMessage !== null && loginMessage.token && loginMessage.token.length > 10) {
-      Actions.reset('homeScreen');
-    }
-  }
 
-  async componentWillReceiveProps(nextProps, nextContext) {
-    await this.handleRedirect(nextProps.loginMessage);
-  }
+  componentDidMount = async () => {
+    const token = await AsyncStorage.getItem('authToken');
+    if (token !== null && token !== undefined && token.length > 10) {
+      this.props.authHydrateTokenFromStorage(token);
+      Actions.reset('homeScreen');
+    } else {
+      this.setState({
+        isLoadingToken: false,
+      });
+    }
+  };
 
 
   handleLoginSubmit = () => {
@@ -51,19 +53,24 @@ class LoginScreen extends Component {
   };
 
   handleRedirect = async (loginMessage) => {
-    if (loginMessage && loginMessage.token) {
-      try {
-        await storage.setItem('authToken', loginMessage.token);
-        Actions.reset('homeScreen');
-      } catch (e) {
-        console.log(e);
-      }
+    try {
+      await AsyncStorage.setItem('authToken', loginMessage.token);
+      Actions.reset('homeScreen');
+    } catch (e) {
+      console.log(e);
     }
   };
 
   render() {
     const { loginLoading, loginMessage } = this.props;
-    if (loginMessage && loginLoading.token) {
+    const { isLoadingToken } = this.state;
+
+    if (isLoadingToken) {
+      return (<LoadingView />);
+    }
+
+    if (loginMessage !== null && loginMessage.success && loginMessage.token) {
+      this.handleRedirect(loginMessage);
       return null;
     }
 
@@ -98,6 +105,7 @@ LoginScreen.propTypes = {
   loginError: PropTypes.object,
   loginMessage: PropTypes.object,
   authLogin: PropTypes.func.isRequired,
+  authHydrateTokenFromStorage: PropTypes.func.isRequired,
 };
 
 function initMapStateToProps(state) {
@@ -111,6 +119,7 @@ function initMapStateToProps(state) {
 function initMapDispatchToProps(dispatch) {
   return bindActionCreators({
     authLogin,
+    authHydrateTokenFromStorage,
   }, dispatch);
 }
 

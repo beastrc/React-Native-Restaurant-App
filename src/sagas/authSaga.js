@@ -1,6 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import storage from 'redux-persist/lib/storage';
-
+import { AsyncStorage } from 'react-native';
 
 import Auth from '../service/login';
 
@@ -9,7 +8,7 @@ function* loginTask(action) {
     yield put({
       type: 'AUTH_LOGIN_LOADING',
     });
-
+    console.log('here');
     const { payload } = action;
 
     const res = yield call(Auth.doLogin, payload.email, payload.password);
@@ -68,7 +67,7 @@ function* registerTask(action) {
 
 function* logoutTask() {
   try {
-    storage.removeItem('authToken');
+    AsyncStorage.removeItem('authToken');
     yield put({
       type: 'AUTH_LOGOUT_RESET',
     });
