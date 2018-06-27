@@ -1,57 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
-
-
+import { Text, View } from 'react-native';
 import CounterButton from './CounterButton';
-import PrimaryText from '../../base_components/PrimaryText';
 
 const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: white;
   padding: 20px 10px;
 `;
 
 const NameView = styled.View`
-  padding-left: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-direction: row;
-  flex: 1;
+  flex: 0.8;
+  padding-left: 2%;
 `;
 
 const RightSection = styled.View`
-  flex: 1;
+  flex: 0.5;
+  margin-left: 20px;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
+`;
+
+const PriceContainer = styled.View`
+  padding-horizontal: 5%;
+  margin-left: 5%;
+  width: 40%;
 `;
 
 const PriceText = styled.Text`
   text-align: right;
 `;
 
-const Item = ({
-  name, price, onChange, qty,
-}) => (
+const Item = ({ name, price, onChange, qty }) => (
   <Container>
     <NameView>
-      <PrimaryText size={14} align="left">{name}</PrimaryText>
+      <Text>{name}</Text>
     </NameView>
     <RightSection>
-      <CounterButton onChange={onChange} qty={qty} />
-      <PriceText>{price}</PriceText>
+      <View>
+        <CounterButton onChange={onChange} qty={qty} />
+      </View>
+      <PriceContainer>
+        <PriceText>{price}</PriceText>
+      </PriceContainer>
     </RightSection>
   </Container>
 );
-
-Item.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onChange: PropTypes.func.isRequired,
-  qty: PropTypes.number.isRequired,
-};
-
 
 export default Item;

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Ripple from 'react-native-material-ripple';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import PrimaryText from './PrimaryText';
 
 
 const RippleWrap = styled(Ripple)`
@@ -29,7 +28,7 @@ const RippleWrap = styled(Ripple)`
  * @constructor
  */
 const RippleIcon = ({
-  name, onPress, size, color, rippleColor, style, dark, ...props
+  name, onPress, size, color, rippleColor, style, dark,
 }) => (
   <RippleWrap
     style={style}
@@ -38,7 +37,6 @@ const RippleIcon = ({
     onPress={onPress}
     rippleCentered
   >
-    {props.children}
     <Ionicons
       name={name}
       color={color || (dark ? '#000' : '#eee')}
@@ -53,13 +51,11 @@ RippleIcon.defaultProps = {
   rippleColor: null,
   color: null,
   style: {},
-  children: null,
 };
 
 RippleIcon.propTypes = {
   rippleColor: PropTypes.string,
   color: PropTypes.string,
-  children: PropTypes.any,
   style: PropTypes.object,
   dark: PropTypes.bool,
   name: PropTypes.string.isRequired,

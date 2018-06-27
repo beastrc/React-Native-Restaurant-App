@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import PrimaryText from '../../base_components/PrimaryText';
 
 const FooterContainer = styled.View`
   height: 10%;
@@ -37,7 +36,7 @@ const FooterText = styled.Text`
 const Footer = ({ totalAmount }) => (
   <FooterContainer>
     <AmountContainer>
-      <PrimaryText>{totalAmount}</PrimaryText>
+      <FooterText>{totalAmount}</FooterText>
     </AmountContainer>
     <PayButton>
       <FooterText>

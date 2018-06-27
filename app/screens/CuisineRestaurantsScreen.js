@@ -9,7 +9,7 @@ import AppBase from '../base_components/AppBase';
 import { authLogout, fetchRestaurantByType } from '../../src/actions/index';
 import RestaurantList from '../components/RestaurantList';
 import PrimaryText from '../base_components/PrimaryText';
-import SignOutButton from '../components/RightHeaderButtons';
+import SignOutButton from '../components/SignOutButton';
 
 class CuisineRestaurantScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -33,9 +33,8 @@ class CuisineRestaurantScreen extends Component {
       >
         <ScrollView>
           <RestaurantList
-            hideFilter
             restaurantList={this.props.restaurantList}
-            // handleFilter={this.handleFilter}
+            handleFilter={this.handleFilter}
           />
         </ScrollView>
       </AppBase>
