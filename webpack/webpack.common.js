@@ -1,7 +1,6 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
 
 const devMode = process.env.NODE_ENV !== 'production';
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
@@ -19,7 +18,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react', 'stage-2'],
+            presets: ['env', 'react'],
           },
         },
       },
@@ -35,9 +34,6 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: [
-          path.resolve(__dirname, 'not_exist_path'),
-        ],
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
