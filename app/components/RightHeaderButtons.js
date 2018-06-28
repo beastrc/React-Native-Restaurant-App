@@ -36,6 +36,14 @@ class RightHeaderButtons extends Component {
         ai="center"
       >
         <RippleIcon
+          dark
+          size={20
+          }
+          name="ios-close"
+          onPress={this.handleSignOut}
+        />
+
+        <RippleIcon
           name="ios-cart-outline"
           dark
           size={20}
@@ -62,14 +70,6 @@ class RightHeaderButtons extends Component {
             </PrimaryText>
           </View>
         </RippleIcon>
-
-        <RippleIcon
-          dark
-          size={20
-          }
-          name="ios-log-out"
-          onPress={this.handleSignOut}
-        />
       </ViewRow>
     );
   }

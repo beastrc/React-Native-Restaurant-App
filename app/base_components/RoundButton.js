@@ -7,7 +7,7 @@ import Colors from '../../src/constants/colors';
 const LoadingWrap = styled.View`
   background-color: ${props => props.buttonColor};
   margin: 10px auto;
-  padding: 15px;
+  padding: 10px;
   width: 150px;
   flex-direction: row;
   justify-content: center;
@@ -79,7 +79,7 @@ class RoundButton extends React.Component {
     return (
       <TouchableOpacity
         onPress={onPress}
-        activeOpacity={0.7}
+        activeOpacity={0.8}
         disabled={disabled}
         style={style.wrap}
       >

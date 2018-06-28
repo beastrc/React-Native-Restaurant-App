@@ -9,7 +9,6 @@ function* loginTask(action) {
     yield put({
       type: 'AUTH_LOGIN_LOADING',
     });
-
     const { payload } = action;
 
     const res = yield call(Auth.doLogin, payload.email, payload.password);

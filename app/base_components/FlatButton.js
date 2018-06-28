@@ -2,13 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Ripple from 'react-native-material-ripple';
-import PrimaryText from './PrimaryText';
 
 const DARK_VIOLET = '#0a98f2';
 const PALE_BLUE = '#5ebcfc';
 const WHITE = '#fff';
 
-const ButtonText = styled(PrimaryText)`
+const ButtonText = styled.Text`
   font-weight: bold;
 `;
 

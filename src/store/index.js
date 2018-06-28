@@ -13,7 +13,6 @@ const persistConfig = {
   key: 'root',
   storage,
   stateReconciler: autoMergeLevel2,
-  blacklist: ['auth', 'cart', 'food', 'restaurant', 'orders'],
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
