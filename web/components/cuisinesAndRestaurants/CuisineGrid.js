@@ -41,7 +41,12 @@ const Heading = styled.div`
   font-size: ${props => (props.size ? props.size : '16px')};
 `;
 
-class CuisineGrid extends React.Component {
+class CuisineGrid extends React.PureComponent {
+  componentWillMount() {
+    this.props.fetchCuisineTypes();
+    this.props.fetchRestaurant();
+  }
+
   displayCuisineList = () => this.props.cuisineTypes.map(cuisine =>
     (
       <KeyContainer>
@@ -61,14 +66,26 @@ class CuisineGrid extends React.Component {
             <PrimaryText size="20px" align="left">Cuisines</PrimaryText>
             <ListStyle>{this.displayCuisineList()}</ListStyle>
           </CuisineContainer>
+          <RestaurantGrid restaurants={this.props.restaurantList} />
         </BaseLayout>
       </div>
     );
   }
 }
+const mapStateToProps = ({ food, restaurant }) => ({
+  cuisineTypes: food.cuisineTypes,
+  restaurantList: restaurant.fullList,
+});
 
-CuisineGrid.propTypes = {
-  cuisineTypes: PropTypes.instanceOf(Object).isRequired,
+const mapDispatchToProps = {
+  fetchRestaurant,
+  fetchCuisineTypes,
 };
 
-export default CuisineGrid;
+CuisineGrid.propTypes = {
+  fetchCuisineTypes: PropTypes.func.isRequired,
+  fetchRestaurant: PropTypes.func.isRequired,
+  cuisineTypes: PropTypes.instanceOf(Object).isRequired,
+  restaurantList: PropTypes.instanceOf(Object).isRequired,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CuisineGrid);
