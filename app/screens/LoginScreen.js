@@ -23,7 +23,7 @@ class LoginScreen extends Component {
   componentDidMount() {
     const { loginMessage } = this.props;
     if (loginMessage !== null && loginMessage.token && loginMessage.token.length > 10) {
-      Actions.reset('drawer');
+      Actions.reset('homeScreen');
     }
   }
 
@@ -52,7 +52,7 @@ class LoginScreen extends Component {
   handleRedirect = (loginMessage) => {
     if (loginMessage && loginMessage.token) {
       try {
-        Actions.reset('drawer');
+        Actions.reset('homeScreen');
       } catch (e) {
         console.log(e);
       }
